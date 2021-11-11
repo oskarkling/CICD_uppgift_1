@@ -8,7 +8,7 @@ namespace CICD_uppgift_1
 {
     public class TestMethod
     {
-        public int AddIntTogether(int nr1, int nr2)
+        public int AddIntTogether(int nr1, string nr2)
         {
             return nr1 + nr2;
         }

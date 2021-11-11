@@ -16,7 +16,7 @@ namespace CICD_uppgift_1.Tests
         {
             TestMethod test = new TestMethod();
             int ans = test.AddIntTogether(2, 2);
-            Assert.AreEqual(2, ans);
+            Assert.AreEqual(4, ans);
         }
     }
 }

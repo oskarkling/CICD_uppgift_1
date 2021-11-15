@@ -6,9 +6,8 @@ namespace CICD_uppgift_1
     {
         static void Main()
         {
-            Console.WriteLine("Hello World!");
-            System.Console.WriteLine("wassap");
+            Core core = new Core();
+            core.Run();
         }
-
     }
 }

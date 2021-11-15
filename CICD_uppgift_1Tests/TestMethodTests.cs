@@ -11,12 +11,41 @@ namespace CICD_uppgift_1.Tests
     [TestClass()]
     public class TestMethodTests
     {
+        //Input tests:
         [TestMethod()]
-        public void AddIntTogetherTest()
+        public void IsMenuInputValidTest()
         {
-            TestMethod test = new TestMethod();
-            int ans = test.AddIntTogether(2, 2);
-            Assert.AreEqual(4, ans);
+            Input input = new Input();
+
+            string stringInput = "15";
+            
+            string errormsg = "";
+            int validnr;
+
+            Assert.AreEqual(true, input.IsMenuInputValid(stringInput,out validnr, out errormsg, 16));
+        }
+
+        [TestMethod()]
+        public void IsStringInputValidTest()
+        {
+            Input input = new Input();
+
+            string stringInput = "Ost";
+            string errormsg = "";
+
+            Assert.AreEqual(true, input.IsStringInputValid(stringInput, out errormsg));
+        }
+
+        [TestMethod()]
+        public void IsNumberInputValidTest()
+        {
+            Input input = new Input();
+
+            string nrInput = "1";
+            string errormsg ="";
+            int validNr;
+
+            Assert.AreEqual(true, input.IsNumberInputValid(nrInput, out validNr, out errormsg, false));
         }
     }
 }

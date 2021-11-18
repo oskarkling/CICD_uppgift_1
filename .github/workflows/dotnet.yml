@@ -42,6 +42,7 @@ jobs:
   release:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
+    environment:
       name: production
       url: https://github.com/oskarkling/CICD_uppgift_1/tree/production
     steps:

@@ -11,8 +11,11 @@ namespace CICD_uppgift_1
         }
         private void MainMenu()
         {
-            System.Console.WriteLine("hello");
-            
+            while(true)
+            {
+               System.Console.WriteLine("menu test");
+            }
+
         }
     }
 }

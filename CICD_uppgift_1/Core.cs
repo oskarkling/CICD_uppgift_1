@@ -6,7 +6,7 @@ namespace CICD_uppgift_1
     {
         public void Run()
         {
-            System.Console.WriteLine("small test change aga222222in");
+            System.Console.WriteLine("small test cha");
             MainMenu();
         }
         private void MainMenu()

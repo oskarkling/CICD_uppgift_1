@@ -1,14 +1,12 @@
 name: .NET
 
 on:
-  push:
-    branches: [ dev ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, dev ]
 
 jobs:
   build:
-    if: github.event_name == 'push'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     environment: 
       name: development

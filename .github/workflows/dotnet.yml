@@ -2,17 +2,17 @@ name: .NET
 
 on:
   push:
-    branches: [ Dev ]
+    branches: [ dev ]
   pull_request:
-    branches: [ Staging ]
+    branches: [ master ]
 
 jobs:
   build:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     environment: 
-      name: DevelopmentEnv
-      url: https://github.com/oskarkling/CICD_uppgift_1/tree/DevelopmentEnv
+      name: development
+      url: https://github.com/oskarkling/CICD_uppgift_1/tree/development
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
@@ -28,8 +28,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     environment: 
-      name: StagingEnv
-      url: https://github.com/oskarkling/CICD_uppgift_1/tree/StagingEnv
+      name: development
+      url: https://github.com/oskarkling/CICD_uppgift_1/tree/development
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
@@ -39,5 +39,17 @@ jobs:
     - name: Test
       run: dotnet test --verbosity normal
       
-      
-    
+  release:
+    needs: test
+    if: github.event_name == 'pull_request'
+    environment:
+      name: production
+      url: https://github.com/oskarkling/CICD_uppgift_1/tree/development
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+      - name: Run
+        run: dotnet run

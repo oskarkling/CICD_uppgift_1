@@ -39,7 +39,7 @@ jobs:
       
   release:
     name: Create Release
-    if: (github.event_name == 'pull_request' && github.ref == 'refs/heads/dev')
+    if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'master'
     runs-on: ubuntu-latest
     environment: 
       name: production
@@ -50,6 +50,7 @@ jobs:
         with:
           ref: 'master'
       - name: Create Release
+        if: github.event.pull_request.base.ref == 'master'
         id: create_release
         uses: actions/create-release@v1
         env:

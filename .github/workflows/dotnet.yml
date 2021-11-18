@@ -41,14 +41,17 @@ jobs:
       
   release:
     if: github.event_name == 'pull_request'
-    environment:
+    runs-on: ubuntu-latest
+    environment: 
       name: production
-      url: https://github.com/oskarkling/CICD_uppgift_1/tree/development
+      url: https://github.com/oskarkling/CICD_uppgift_1/tree/production
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-      - name: Run
-        run: dotnet run
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: RunProgram
+      run: dotnet run

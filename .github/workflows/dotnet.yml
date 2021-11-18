@@ -62,4 +62,4 @@ jobs:
             - First Change
             - Second Change
           draft: false
-          prerelease: false  release:
+          prerelease: false  release

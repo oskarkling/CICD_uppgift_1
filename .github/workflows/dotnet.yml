@@ -40,8 +40,8 @@ jobs:
       run: dotnet test --verbosity normal
       
   release:
-    needs: test
     if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
     environment:
       name: production
       url: https://github.com/oskarkling/CICD_uppgift_1/tree/development
@@ -51,5 +51,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-      - name: Run
-        run: dotnet run
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: runningThis
+      run: dotnet run

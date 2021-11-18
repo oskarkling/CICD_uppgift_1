@@ -11,7 +11,5 @@ namespace CICD_uppgift_1.Account
         //Check current company role
 
         //Delete account
-
-        //test again this
     }
 }

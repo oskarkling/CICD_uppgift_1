@@ -7,6 +7,7 @@ namespace CICD_uppgift_1
         public User CurrentUser { get; set; }
         public Admin CurrentAdmin{ get; set; }
         public bool UserIsAdmin {get; set; }
+        public bool HasUser { get; set; }
 
         public object GetUser()
         {
@@ -22,6 +23,7 @@ namespace CICD_uppgift_1
 
         public void SetUser(IUser user)
         {
+            HasUser = true;
             if(user is User)
             {
                 CurrentUser = (User)user;

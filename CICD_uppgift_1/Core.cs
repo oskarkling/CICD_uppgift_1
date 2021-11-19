@@ -20,7 +20,6 @@ namespace CICD_uppgift_1
         }
         public void Run()
         {
-
             WelcomeMenu();
         }
         private void WelcomeMenu()
@@ -28,9 +27,10 @@ namespace CICD_uppgift_1
             bool runMenu = true;
             while (runMenu)
             {
-                Console.Clear();
+                
                 int nrOfMenuChoices = 2;
                 Console.WriteLine("1. Login\n0. Exit");
+
                 var stringInput = Console.ReadLine();
                 if (input.IsMenuInputValid(stringInput, out int menuChoice, out errormsg, nrOfMenuChoices))
                 {
@@ -57,6 +57,7 @@ namespace CICD_uppgift_1
 
         private void Login()
         {
+            bool wrongPassword = false;
             Console.WriteLine("Enter username");
             var inputUsername = Console.ReadLine();
             if(input.IsStringInputValid(inputUsername, out errormsg))
@@ -75,11 +76,10 @@ namespace CICD_uppgift_1
                                 {
                                     Console.Clear();
                                     userManager.SetUser(user);
-                                    UserMainMenu();
                                 }
                                 else
                                 {
-                                    System.Console.WriteLine("wrong password");
+                                    wrongPassword = true;
                                 }
                             }                           
                         }
@@ -91,18 +91,35 @@ namespace CICD_uppgift_1
                                 {
                                     Console.Clear();
                                     userManager.SetUser(user);
-                                    AdminMainMenu();
                                 }
                                 else
                                 {
-                                    System.Console.WriteLine("wrong password");
+                                    wrongPassword = true;
                                 }
                             }
                         }
                     }
-                    if(userManager.GetUser() == null)
+                    if(wrongPassword)
                     {
-                        System.Console.WriteLine("user does not exist");
+                        System.Console.WriteLine("Wrong password");
+                    }
+                    else
+                    {
+                        if(!userManager.HasUser)
+                        {
+                            System.Console.WriteLine("user does not exist");
+                        }
+                        else
+                        {
+                            if(userManager.UserIsAdmin)
+                            {
+                                AdminMainMenu();
+                            }
+                            else
+                            {
+                                UserMainMenu();
+                            }
+                        }
                     }
                 }
                 else
@@ -119,9 +136,9 @@ namespace CICD_uppgift_1
         private void UserMainMenu()
         {
             bool runMenu = true;
-            while (runMenu)
+            while (runMenu && userManager.HasUser)
             {
-                int nrOfMenuChoices = 3;
+                int nrOfMenuChoices = 4;
                 Console.WriteLine("1. Show your salary\n2. Show your role in company\n3. Remove your account\n0. Logout");
                 var stringInput = Console.ReadLine();
                 if (input.IsMenuInputValid(stringInput, out int menuChoice, out errormsg, nrOfMenuChoices))
@@ -134,6 +151,9 @@ namespace CICD_uppgift_1
                         case 2:
                             ShowRole();
                             break;
+                        case 3:
+                            RemoveAccount();
+                            break;
                         case 0:
                             runMenu = false;
                             userManager = new UserManager();
@@ -145,6 +165,43 @@ namespace CICD_uppgift_1
                     Console.Clear();
                     Console.WriteLine(errormsg);
                 }    
+            }
+        }
+
+        private void RemoveAccount()
+        {
+            if(userManager.UserIsAdmin)
+            {
+
+            }
+            else
+            {
+                System.Console.WriteLine("Enter you username and password for removal of your account");
+                System.Console.Write("Username: ");
+                string inputUsername = Console.ReadLine();
+                System.Console.Write("Password: ");
+                string inputPassword = Console.ReadLine();
+                if(userManager.CurrentUser.Username == inputUsername)
+                {
+                    if(userManager.CurrentUser.Password == inputPassword)
+                    {
+                        System.Console.WriteLine("username and password was ok");
+                        User userToRemove = (User)userManager.GetUser();
+                        userList.Remove(userToRemove);
+                        
+                        //reset usermanager
+                        userManager = new UserManager();
+                        System.Console.WriteLine("user is removed");
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("wrong password");
+                    }
+                }
+                else
+                {
+                    System.Console.WriteLine("wrong username");
+                }
             }
         }
 
@@ -166,7 +223,7 @@ namespace CICD_uppgift_1
         private void AdminMainMenu()
     {
          bool runMenu = true;
-            while (runMenu)
+            while (runMenu && userManager.HasUser)
             {
                 int nrOfMenuChoices = 3;
                 System.Console.WriteLine("Admin Menu");

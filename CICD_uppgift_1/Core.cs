@@ -176,13 +176,10 @@ namespace CICD_uppgift_1
             if (userManager.UserIsAdmin)
             {
                 Console.WriteLine("Select account to remove:");
-                foreach (var user in userList)
-                {
-                    Console.WriteLine(userList.IndexOf(user) + 1 + ". " + user.Username + " : " + user.Password);
-                }
+                ShowAllUsers();
                 int nbrOfAlternatives = userList.Count;
                 string numInput = Console.ReadLine();
-                
+
                 if (input.IsMenuInputValid(numInput, out int choice, out errormsg, nbrOfAlternatives))
                 {
                     switch (choice)
@@ -199,7 +196,7 @@ namespace CICD_uppgift_1
                 }
                 Console.WriteLine();
                 input.DeletePrevConsoleLine();
-                var userToRemove = userManager.SelectedUser;
+                IUser userToRemove = (IUser)userManager.SelectedUser;
                 System.Console.WriteLine("Enter username and password to confirm account removal");
                 System.Console.Write("Username: ");
                 string inputUsername = Console.ReadLine();
@@ -227,7 +224,7 @@ namespace CICD_uppgift_1
                         {
                             Console.WriteLine("invalid input");
                         }
-                    }                  
+                    }
                 }
                 Console.Clear();
             }
@@ -283,9 +280,9 @@ namespace CICD_uppgift_1
             bool runMenu = true;
             while (runMenu && userManager.HasUser)
             {
-                int nrOfMenuChoices = 4;
+                int nrOfMenuChoices = 6;
                 System.Console.WriteLine("Admin Menu");
-                Console.WriteLine("1. Show your salary\n2. Show your role in company\n3. Remove your account\n0. Logout");
+                Console.WriteLine("1. Show your salary\n2. Show your role in company\n3. Remove account\n4. Show all users\n5. Add a new user\n0. Logout");
                 var stringInput = Console.ReadLine();
                 if (input.IsMenuInputValid(stringInput, out int menuChoice, out errormsg, nrOfMenuChoices))
                 {
@@ -299,6 +296,12 @@ namespace CICD_uppgift_1
                             break;
                         case 3:
                             RemoveAccount();
+                            break;
+                        case 4:
+                            ShowAllUsers();
+                            break;
+                        case 5:
+                            AddUser();
                             break;
                         case 0:
                             runMenu = false;
@@ -329,6 +332,63 @@ namespace CICD_uppgift_1
             Console.Clear();
             System.Console.WriteLine("Your salary is: " + salary);
 
+        }
+
+        private void ShowAllUsers()
+        {
+            Console.Clear();
+            foreach (var user in userList)
+            {
+                Console.WriteLine(userList.IndexOf(user) + 1 + ". " + user.Username + " : " + user.Password);
+            }
+            Console.WriteLine();
+        }
+
+        private void AddUser()
+        {
+            Console.Clear();
+            Console.WriteLine("Type a username and password for this new user");
+            Console.Write("Username: ");
+            string inputUserName = Console.ReadLine();
+            Console.Write("Password: ");
+            string inputPassword = Console.ReadLine();
+            Console.WriteLine();
+            bool runMenu = true;
+            while (runMenu)
+            {
+                Console.WriteLine("Choose a role for this user");
+                Console.WriteLine("1. Floorworker\n2. Manager\n3. Boss\n4. Unassigned");
+                int nrOfMenuChoices = 4;
+                var stringInput = Console.ReadLine();
+                if (input.IsMenuInputValid(stringInput, out int menuChoice, out errormsg, nrOfMenuChoices))
+                {
+                    switch (menuChoice)
+                    {
+                        case 1:
+                            userList.Add(new User(inputUserName, inputPassword, Roles.FloorWorker));
+                            runMenu = false;
+                            break;
+                        case 2:
+                            userList.Add(new User(inputUserName, inputPassword, Roles.Manager));
+                            runMenu = false;
+                            break;
+                        case 3:
+                            userList.Add(new User(inputUserName, inputPassword, Roles.Boss));
+                            runMenu = false;
+                            break;
+                        case 4:
+                            userList.Add(new User(inputUserName, inputPassword, Roles.UnAssigned));
+                            runMenu = false;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            input.DeletePrevConsoleLine();
+            Console.WriteLine("User added successfully");
+            Console.ReadLine();
+            Console.Clear();
         }
     }
 }

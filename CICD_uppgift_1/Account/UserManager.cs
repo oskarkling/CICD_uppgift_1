@@ -5,7 +5,7 @@ namespace CICD_uppgift_1
     public class UserManager
     {
         public User CurrentUser { get; set; }
-        public User SelectedUser { get; set; }
+        public object SelectedUser { get; set; }
         public Admin CurrentAdmin{ get; set; }
         public bool UserIsAdmin {get; set; }
         public bool HasUser { get; set; }
@@ -39,7 +39,7 @@ namespace CICD_uppgift_1
 
         public void SelectUser(IUser user)
         {
-            SelectedUser = (User)user;
+            SelectedUser = user;
         }
     }
 }

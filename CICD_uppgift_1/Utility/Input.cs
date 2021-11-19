@@ -13,7 +13,7 @@ namespace CICD_uppgift_1
 
             if (IsNumberInputValid(input, out validNumber, out errormsg, true))
             {
-                if(validNumber < nrOfMenuChoices)
+                if(validNumber <= nrOfMenuChoices)
                 {
                     return true;
                 }
@@ -90,6 +90,14 @@ namespace CICD_uppgift_1
                     return false;
                 }        
             }
+        }
+
+        public void DeletePrevConsoleLine()
+        {
+            if (Console.CursorTop == 0) return;
+            Console.SetCursorPosition(0, Console.CursorTop - 1);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, Console.CursorTop - 1);
         }
 
         // Checks if string input is a number

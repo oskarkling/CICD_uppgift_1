@@ -6,7 +6,7 @@ namespace CICD_uppgift_1
 {
     public class Input
     {
-        public bool IsMenuInputValid(string input, out int validNumber, out string errormsg, long nrOfMenuChoices)
+        public bool IsMenuInputValid(string input, out int validNumber, out string errormsg, int nrOfMenuChoices)
         {
             errormsg = "no error";
             validNumber = 0;

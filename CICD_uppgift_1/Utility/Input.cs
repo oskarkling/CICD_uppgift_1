@@ -92,13 +92,13 @@ namespace CICD_uppgift_1
             }
         }
 
-        public void DeletePrevConsoleLine()
-        {
-            if (Console.CursorTop == 0) return;
-            Console.SetCursorPosition(0, Console.CursorTop - 1);
-            Console.Write(new string(' ', Console.WindowWidth));
-            Console.SetCursorPosition(0, Console.CursorTop - 1);
-        }
+        //public void DeletePrevConsoleLine()
+        //{
+        //    if (Console.CursorTop == 0) return;
+        //    Console.SetCursorPosition(0, Console.CursorTop - 1);
+        //    Console.Write(new string(' ', Console.WindowWidth));
+        //    Console.SetCursorPosition(0, Console.CursorTop - 1);
+        //}
 
         // Checks if string input is a number
         // Then sends an int with that number

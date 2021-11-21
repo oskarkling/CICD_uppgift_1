@@ -47,5 +47,25 @@ namespace CICD_uppgift_1.Tests
 
             Assert.AreEqual(true, input.IsNumberInputValid(nrInput, out validNr, out errormsg, false));
         }
+
+        [TestMethod()]
+        public void SetUserTest()
+        {
+            IUser user = new User("oskar", "kling", Roles.Boss);
+            UserManager manager = new UserManager();
+            manager.SetUser(user);
+
+            Assert.IsNotNull(manager.CurrentUser);
+        }
+
+        [TestMethod()]
+        public void SetAdminTest()
+        {
+            IUser user = new Admin("admin1", "admin1234", Roles.Manager);
+            UserManager manager = new UserManager();
+            manager.SetUser(user);
+
+            Assert.IsNotNull(manager.CurrentAdmin);
+        }
     }
 }

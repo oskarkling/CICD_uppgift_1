@@ -18,11 +18,11 @@ namespace CICD_uppgift_1.Tests
             Input input = new Input();
 
             string stringInput = "15";
-            
+
             string errormsg = "";
             int validnr;
 
-            Assert.AreEqual(true, input.IsMenuInputValid(stringInput,out validnr, out errormsg, 16));
+            Assert.AreEqual(true, input.IsMenuInputValid(stringInput, out validnr, out errormsg, 16));
         }
 
         [TestMethod()]
@@ -42,7 +42,7 @@ namespace CICD_uppgift_1.Tests
             Input input = new Input();
 
             string nrInput = "1";
-            string errormsg ="";
+            string errormsg = "";
             int validNr;
 
             Assert.AreEqual(true, input.IsNumberInputValid(nrInput, out validNr, out errormsg, false));
@@ -66,6 +66,49 @@ namespace CICD_uppgift_1.Tests
             manager.SetUser(user);
 
             Assert.IsNotNull(manager.CurrentAdmin);
+        }
+
+        // Integration Test _____________________________
+        Core core = new Core();
+
+        [TestMethod()]
+        public void SetAdminIntegrationTest()
+        {
+            core.userManager.SetUser(core.data.userList[0]);
+
+            Assert.IsTrue(core.userManager.UserIsAdmin);
+        }
+
+        [TestMethod()]
+        public void AdminMainMenuIntegrationTest()
+        {
+            string errormsg;
+            int nrOfMenuChoices = 6;
+
+            Assert.IsTrue(core.input.IsMenuInputValid("4", out int menuChoice, out errormsg, nrOfMenuChoices));
+        }
+
+        [TestMethod()]
+        public void AddUserIntegrationTest()
+        {
+            string username = "Rolf";
+            string password = "Karlsson";
+            Roles role = Roles.FloorWorker;
+            bool userexist = false;
+
+            core.AddUser(username, password, role);
+            foreach(var user in core.data.userList)
+            {
+                if(user is User)
+                {
+                    if(user.Username == username && user.Password == password)
+                    {
+                        userexist = true;
+                    }
+                }
+            }
+
+            Assert.IsTrue(userexist);
         }
     }
 }

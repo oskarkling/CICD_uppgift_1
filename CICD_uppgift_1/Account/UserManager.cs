@@ -2,6 +2,7 @@ using System;
 
 namespace CICD_uppgift_1
 {
+    //Class if for managing the current user
     public class UserManager
     {
         public User CurrentUser { get; set; }

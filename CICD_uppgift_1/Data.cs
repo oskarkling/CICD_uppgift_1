@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace CICD_uppgift_1
 {
+    //Mock data for the application to use
     public class Data
     {
         public List<IUser> userList;

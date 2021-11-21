@@ -20,10 +20,13 @@ namespace CICD_uppgift_1
             userManager = new UserManager();
             retriever = new ConsoleReadlineRetriever();
         }
+
+        //Star point for the core application
         public void Run()
         {
             WelcomeMenu();
         }
+
         private void WelcomeMenu()
         {
             bool runMenu = true;
@@ -57,6 +60,7 @@ namespace CICD_uppgift_1
             }
         }
 
+        //Handle input for login
         public void LoginInput()
         {
             Console.WriteLine("Enter username");
@@ -66,6 +70,7 @@ namespace CICD_uppgift_1
             Login(inputUsername, inputPassword);
         }
 
+        //Processes input for login
         public void Login(string userName, string password)
         {
             // input.DeletePrevConsoleLine();
@@ -110,13 +115,13 @@ namespace CICD_uppgift_1
                     }
                     if (wrongPassword)
                     {
-                        System.Console.WriteLine("Wrong password");
+                        Console.WriteLine("Wrong password");
                     }
                     else
                     {
                         if (!userManager.HasUser)
                         {
-                            System.Console.WriteLine("user does not exist");
+                            Console.WriteLine("user does not exist");
                         }
                         else
                         {
@@ -178,6 +183,7 @@ namespace CICD_uppgift_1
             }
         }
 
+        //Remove own account if user, adds possibility to remove other users if admin
         private void RemoveAccount()
         {
             
@@ -203,18 +209,17 @@ namespace CICD_uppgift_1
                     }
                 }
                 Console.WriteLine();
-                //input.DeletePrevConsoleLine();
                 IUser userToRemove = (IUser)userManager.SelectedUser;
-                System.Console.WriteLine("Enter username and password to confirm account removal");
-                System.Console.Write("Username: ");
+                Console.WriteLine("Enter username and password to confirm account removal");
+                Console.Write("Username: ");
                 string inputUsername = retriever.GetStringInput();
-                System.Console.Write("Password: ");
+                Console.Write("Password: ");
                 string inputPassword = retriever.GetStringInput();
                 Console.WriteLine();
                 if (inputUsername == userToRemove.Username && inputPassword == userToRemove.Password)
                 {
-                    System.Console.WriteLine("You are about to delete account with username: " + userToRemove.Username);
-                    System.Console.WriteLine("Are you sure? Yes - No");
+                    Console.WriteLine("You are about to delete account with username: " + userToRemove.Username);
+                    Console.WriteLine("Are you sure? Yes - No");
                     Console.WriteLine();
                     string confirmation = retriever.GetStringInput();
                     bool open = true;
@@ -222,7 +227,6 @@ namespace CICD_uppgift_1
                     {
                         if (confirmation.ToLower() == "yes" || confirmation.ToLower() == "y")
                         {
-                            //input.DeletePrevConsoleLine();
                             data.userList.Remove(userToRemove);
                             Console.WriteLine("User removed");
                             retriever.GetStringInput();
@@ -238,31 +242,30 @@ namespace CICD_uppgift_1
             }
             else
             {
-                System.Console.WriteLine("Enter you username and password for removal of your account");
-                System.Console.Write("Username: ");
+                Console.WriteLine("Enter you username and password for removal of your account");
+                Console.Write("Username: ");
                 string inputUsername = retriever.GetStringInput();
-                System.Console.Write("Password: ");
+                Console.Write("Password: ");
                 string inputPassword = retriever.GetStringInput();
                 if (userManager.CurrentUser.Username == inputUsername)
                 {
                     if (userManager.CurrentUser.Password == inputPassword)
                     {
-                        System.Console.WriteLine("username and password was ok");
+                        Console.WriteLine("username and password was ok");
                         User userToRemove = (User)userManager.GetUser();
                         data.userList.Remove(userToRemove);
-
-                        //reset usermanager
+                      
                         userManager = new UserManager();
-                        System.Console.WriteLine("user is removed");
+                        Console.WriteLine("user is removed");
                     }
                     else
                     {
-                        System.Console.WriteLine("wrong password");
+                        Console.WriteLine("wrong password");
                     }
                 }
                 else
                 {
-                    System.Console.WriteLine("wrong username");
+                    Console.WriteLine("wrong username");
                 }
             }
         }
@@ -279,7 +282,7 @@ namespace CICD_uppgift_1
                 role = ((User)userManager.GetUser()).Role;
             }
             
-            System.Console.WriteLine("Your role in the company is: " + role);
+            Console.WriteLine("Your role in the company is: " + role);
         }
 
         public void AdminMainMenu()
@@ -289,7 +292,7 @@ namespace CICD_uppgift_1
             while (runMenu && userManager.HasUser)
             {
                 int nrOfMenuChoices = 6;
-                System.Console.WriteLine("Admin Menu");
+                Console.WriteLine("Admin Menu");
                 Console.WriteLine("1. Show your salary\n2. Show your role in company\n3. Remove account\n4. Show all users\n5. Add a new user\n0. Logout");
                 var stringInput = retriever.GetStringInput();
                 if (input.IsMenuInputValid(stringInput, out int menuChoice, out errormsg, nrOfMenuChoices))
@@ -338,7 +341,7 @@ namespace CICD_uppgift_1
                 salary = ((User)userManager.GetUser()).Salary;
             }
             
-            System.Console.WriteLine("Your salary is: " + salary);
+            Console.WriteLine("Your salary is: " + salary);
 
         }
 
@@ -390,7 +393,7 @@ namespace CICD_uppgift_1
                     }
                 }
             }
-            //input.DeletePrevConsoleLine();
+
             AddUser(inputUserName, inputPassword, role);
             Console.WriteLine("User added successfully");
             retriever.GetStringInput();

@@ -4,6 +4,7 @@ namespace CICD_uppgift_1
     {
         public int Salary { get; set; }
         public Roles Role { get; set; }
+
         public Admin(string username, string password, Roles role) : base(username, password)
         {
             Role = role;

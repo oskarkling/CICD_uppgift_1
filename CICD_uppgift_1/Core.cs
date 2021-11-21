@@ -5,17 +5,17 @@ namespace CICD_uppgift_1
 {
     public class Core
     {
-        public List<IUser> userList;
         private string errormsg;
         private Input input;
         private UserManager userManager;
+        private Data data;
 
         //Init in constructor
         public Core()
         {
             errormsg = "";
             input = new Input();
-            userList = new List<IUser>();
+            data = new Data();
             userManager = new UserManager();
         }
         public void Run()
@@ -67,7 +67,7 @@ namespace CICD_uppgift_1
                 var inputPassword = Console.ReadLine();
                 if (input.IsStringInputValid(inputPassword, out errormsg))
                 {
-                    foreach (var user in userList)
+                    foreach (var user in data.userList)
                     {
                         if (user is User)
                         {
@@ -177,7 +177,7 @@ namespace CICD_uppgift_1
             {
                 Console.WriteLine("Select account to remove:");
                 ShowAllUsers();
-                int nbrOfAlternatives = userList.Count;
+                int nbrOfAlternatives = data.userList.Count;
                 string numInput = Console.ReadLine();
 
                 if (input.IsMenuInputValid(numInput, out int choice, out errormsg, nbrOfAlternatives))
@@ -185,10 +185,10 @@ namespace CICD_uppgift_1
                     switch (choice)
                     {
                         case 1:
-                            userManager.SelectUser(userList[choice - 1]);
+                            userManager.SelectUser(data.userList[choice - 1]);
                             break;
                         case 2:
-                            userManager.SelectUser(userList[choice - 1]);
+                            userManager.SelectUser(data.userList[choice - 1]);
                             break;
                         default:
                             break;
@@ -215,7 +215,7 @@ namespace CICD_uppgift_1
                         if (confirmation.ToLower() == "yes" || confirmation.ToLower() == "y")
                         {
                             input.DeletePrevConsoleLine();
-                            userList.Remove(userToRemove);
+                            data.userList.Remove(userToRemove);
                             Console.WriteLine("User removed");
                             Console.ReadLine();
                             open = false;
@@ -241,7 +241,7 @@ namespace CICD_uppgift_1
                     {
                         System.Console.WriteLine("username and password was ok");
                         User userToRemove = (User)userManager.GetUser();
-                        userList.Remove(userToRemove);
+                        data.userList.Remove(userToRemove);
 
                         //reset usermanager
                         userManager = new UserManager();
@@ -337,9 +337,9 @@ namespace CICD_uppgift_1
         private void ShowAllUsers()
         {
             Console.Clear();
-            foreach (var user in userList)
+            foreach (var user in data.userList)
             {
-                Console.WriteLine(userList.IndexOf(user) + 1 + ". " + user.Username + " : " + user.Password);
+                Console.WriteLine(data.userList.IndexOf(user) + 1 + ". " + user.Username + " : " + user.Password);
             }
             Console.WriteLine();
         }
@@ -365,19 +365,19 @@ namespace CICD_uppgift_1
                     switch (menuChoice)
                     {
                         case 1:
-                            userList.Add(new User(inputUserName, inputPassword, Roles.FloorWorker));
+                            data.userList.Add(new User(inputUserName, inputPassword, Roles.FloorWorker));
                             runMenu = false;
                             break;
                         case 2:
-                            userList.Add(new User(inputUserName, inputPassword, Roles.Manager));
+                            data.userList.Add(new User(inputUserName, inputPassword, Roles.Manager));
                             runMenu = false;
                             break;
                         case 3:
-                            userList.Add(new User(inputUserName, inputPassword, Roles.Boss));
+                            data.userList.Add(new User(inputUserName, inputPassword, Roles.Boss));
                             runMenu = false;
                             break;
                         case 4:
-                            userList.Add(new User(inputUserName, inputPassword, Roles.UnAssigned));
+                            data.userList.Add(new User(inputUserName, inputPassword, Roles.UnAssigned));
                             runMenu = false;
                             break;
                         default:

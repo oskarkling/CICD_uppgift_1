@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CICD_uppgift_1
 {
-    class Data
+    public class Data
     {
         public List<IUser> userList;
         public Data()

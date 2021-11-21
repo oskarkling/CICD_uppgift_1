@@ -12,9 +12,9 @@ namespace CICD_uppgift_1
         public Data()
         {
             userList = new List<IUser>();
-            userList.Add(new Admin("admin1", "admin1234", Roles.Manager));
-            userList.Add(new User("oskar", "kling", Roles.Boss));
-            userList.Add(new User("Christopher", "brizet", Roles.Boss));
+            userList.Add(new Admin("admin1", "admin1234", Roles.Manager) { Salary = 200000 });
+            userList.Add(new User("oskar", "kling", Roles.Boss) { Salary = 400000 });
+            userList.Add(new User("Christopher", "brizet", Roles.Boss) { Salary = 99999 });
         }
     }
 }

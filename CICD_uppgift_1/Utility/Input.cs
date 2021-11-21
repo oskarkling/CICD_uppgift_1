@@ -4,8 +4,10 @@ using System.Linq;
 
 namespace CICD_uppgift_1
 {
+    //Class is for handling input from user and checking if it is correct
     public class Input
     {
+        //Checks if the string input is a number and between the menu range
         public bool IsMenuInputValid(string input, out int validNumber, out string errormsg, int nrOfMenuChoices)
         {
             errormsg = "no error";
@@ -30,6 +32,7 @@ namespace CICD_uppgift_1
 
         }
 
+        //Checking if the input string is empty
         public bool IsStringInputValid(string input, out string errormsg)
         {
             errormsg ="no error";
@@ -45,6 +48,7 @@ namespace CICD_uppgift_1
             }
         }
 
+        //Checks if the string input is a valid number and if it can be zero or not
         public bool IsNumberInputValid(string input, out int validNumber, out string errormsg, bool canBeZero)
         {
             errormsg = "no error";
@@ -91,14 +95,6 @@ namespace CICD_uppgift_1
                 }        
             }
         }
-
-        //public void DeletePrevConsoleLine()
-        //{
-        //    if (Console.CursorTop == 0) return;
-        //    Console.SetCursorPosition(0, Console.CursorTop - 1);
-        //    Console.Write(new string(' ', Console.WindowWidth));
-        //    Console.SetCursorPosition(0, Console.CursorTop - 1);
-        //}
 
         // Checks if string input is a number
         // Then sends an int with that number

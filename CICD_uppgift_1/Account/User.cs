@@ -21,16 +21,5 @@ namespace CICD_uppgift_1
                 isLoggedIn = value;
             }
         }
-
-
-        //Login
-
-        //Logout
-
-        //Check current salary
-
-        //Check current company role
-
-        //Delete account
     }
 }

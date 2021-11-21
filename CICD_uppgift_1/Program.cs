@@ -7,6 +7,7 @@ namespace CICD_uppgift_1
         static void Main()
         {
             Core core = new Core();
+            Data data = new Data();
             Admin admin = new Admin("admin1", "admin1234", Roles.Manager);
             admin.Salary = 200000;
             User user = new User("oskar", "kling", Roles.Boss);
